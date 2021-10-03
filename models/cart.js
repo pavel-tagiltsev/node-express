@@ -39,6 +39,33 @@ class Cart {
         })
     }
 
+    static async remove(id) {
+        const cart = await Cart.fetch()
+
+        const index = cart.courses.findIndex((item) => item.id === id)
+        const course = cart.courses[index]
+
+        if (course.count === 1) {
+            // удалить
+            cart.courses = cart.courses.filter((item) => item.id !== id)
+        } else {
+            // изменить количество
+            cart.courses[index].count--
+        }
+
+        cart.price -= course.price
+
+        return new Promise((resolve, reject) => {
+            fs.writeFile(p, JSON.stringify(cart), (err) => {
+                if(err) {
+                    reject(err)
+                } else {
+                    resolve(cart)
+                }
+            })
+        })
+    }
+
     static async fetch() {
         return new Promise((resolve, reject) => {
             fs.readFile(p, 'utf-8', (err, content) => {
