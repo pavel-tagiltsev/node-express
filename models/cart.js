@@ -11,17 +11,19 @@ class Cart {
     static async add(course) {
         const cart = await Cart.fetch()
 
-        const index = cart.courses.findIndex((item) => item.id = course.id)
+        const index = cart.courses.findIndex((item) => item.id === course.id)
         const candidate = cart.courses[index]
-
+            console.log(cart.courses[index])
         if (candidate) {
             // курс уже есть
             candidate.count++
             cart.courses[index] = candidate
+            console.log(candidate)
         } else {
             // нужно добавить
             course.count = 1
             cart.courses.push(course)
+            console.log(course)
         }
 
         cart.price += +course.price
