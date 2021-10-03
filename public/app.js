@@ -1,8 +1,12 @@
-document.querySelectorAll('.price').forEach((node) => {
-    node.textContent = new Intl.NumberFormat('ru-RU', {
+const toCurrency = (price) => {
+    return new Intl.NumberFormat('ru-RU', {
         currency: 'rub',
         style: 'currency'
-    }).format(node.textContent)
+    }).format(price)
+}
+
+document.querySelectorAll('.price').forEach((node) => {
+    node.textContent = toCurrency(node.textContent)
 })
 
 const $cart = document.querySelector('#cart')
@@ -17,7 +21,26 @@ if ($cart) {
             })
             .then((res) => res.json())
             .then((cart) => {
-                console.log(cart)
+                if (cart.courses.length) {
+                    const html = cart.courses.map((item) => {
+                        const {title, count, id} = item;
+
+                        return `
+                        <tr>
+                            <td>${title}</td>
+                            <td>${count}</td>
+                            <td>
+                                <button class="btn btn-small js-remove" data-id="${id}">Удалить</button>
+                            </td>
+                        </tr>
+                        `
+                    }).join('')
+
+                    $cart.querySelector('tbody').innerHTML = html
+                    $cart.querySelector('.price').textContent = toCurrency(cart.price)
+                } else {
+                    $cart.innerHTML = '<p>Корзина пуста</p>'
+                }
             })
         }
     })
