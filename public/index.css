@@ -25,3 +25,9 @@
 .course .price.big {
     font-style: 2.5rem;
 }
+
+.actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
