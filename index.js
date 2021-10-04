@@ -26,6 +26,9 @@ app.use('/cart', cartRouter)
 
 const PORT = process.env.PORT || 3000
 
+const password = 'XF1mNsJwLse9RJtt';
+const url = `mongodb+srv://tagiltsef:${password}@cluster0.bpkhs.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+
 app.listen(PORT, () => {
     console.log(`Server is running on port${PORT}`)
 })
