@@ -30,7 +30,7 @@ const PORT = process.env.PORT || 3000
 async function start() {
     try {
         const password = 'XF1mNsJwLse9RJtt';
-        const url = `mongodb+srv://tagiltsef:${password}@cluster0.bpkhs.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+        const url = `mongodb+srv://tagiltsef:${password}@cluster0.bpkhs.mongodb.net/shop`;
         await mongoose.connect(url, {useNewUrlParser: true})
 
         app.listen(PORT, () => {
