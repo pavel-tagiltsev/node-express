@@ -1,6 +1,7 @@
 const {Router} = require('express')
 const Course = require('../models/course')
 const router = Router()
+const checkUrl = require('../helpers/utils')
 
 router.get('/', (req, res) => {
     res.render('add', {
@@ -15,7 +16,7 @@ router.post('/', async (req, res) => {
     const course = new Course({
         title,
         price,
-        img
+        img: checkUrl(img)
     })
 
     try {
