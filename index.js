@@ -8,6 +8,7 @@ const homeRoutes = require('./routes/home')
 const addRoutes = require('./routes/add')
 const coursesRoutes = require('./routes/courses')
 const cartRouter = require('./routes/cart')
+const User = require('./models/user')
 
 const app = express()
 
@@ -20,6 +21,16 @@ const hbs = exphbs.create({
 app.engine('hbs', hbs.engine)
 app.set('view engine', 'hbs')
 app.set('views', 'views')
+
+app.use(async (req, res, next) => {
+    try {
+        const user = await User.findById('615c888e54aa05f8e2e08ab2')
+        req.user = user
+        next()
+    } catch (err) {
+        console.log(err)
+    }
+})
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({extended: true}))
@@ -35,6 +46,18 @@ async function start() {
         const password = 'XF1mNsJwLse9RJtt';
         const url = `mongodb+srv://tagiltsef:${password}@cluster0.bpkhs.mongodb.net/shop`;
         await mongoose.connect(url, {useNewUrlParser: true})
+
+        const candidate = await User.findOne()
+
+        if (!candidate) {
+            const user = new User({
+                email: 'pavel.tagiltsef@gmail.com',
+                name: 'tagiltsef',
+                cart: {items: []}
+            })
+
+            await user.save()
+        }
 
         app.listen(PORT, () => {
             console.log(`Server is running on port${PORT}`)

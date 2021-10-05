@@ -16,7 +16,8 @@ router.post('/', async (req, res) => {
     const course = new Course({
         title,
         price,
-        img: checkUrl(img)
+        img: checkUrl(img),
+        userId: req.user._id
     })
 
     try {
