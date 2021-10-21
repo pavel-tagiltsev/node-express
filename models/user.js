@@ -48,4 +48,18 @@ userSchema.methods.addToCart = function(course) {
     return this.save()
 }
 
+userSchema.methods.removeFromCart = function(id) {
+    let clonedItems = [...this.cart.items]
+    const index = clonedItems.findIndex((item) => item.courseId.toString() === id.toString())
+    
+    if (clonedItems[index].count === 1) {
+        clonedItems = clonedItems.filter((item) => item.courseId.toString() !== id.toString())
+    } else {
+        clonedItems[index].count--
+    }
+    const newCart = {items: clonedItems}
+    this.cart = newCart
+    return this.save()
+}
+
 module.exports = model('User', userSchema)
