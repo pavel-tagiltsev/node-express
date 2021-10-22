@@ -6,6 +6,7 @@ const exphbs = require('express-handlebars')
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
 const homeRoutes = require('./routes/home')
 const addRoutes = require('./routes/add')
+const ordersRoutes = require('./routes/orders')
 const coursesRoutes = require('./routes/courses')
 const cartRouter = require('./routes/cart')
 const User = require('./models/user')
@@ -38,6 +39,7 @@ app.use('/', homeRoutes)
 app.use('/add', addRoutes)
 app.use('/courses', coursesRoutes)
 app.use('/cart', cartRouter)
+app.use('/orders', ordersRoutes)
 
 const PORT = process.env.PORT || 3000
 
