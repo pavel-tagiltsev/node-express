@@ -14,6 +14,7 @@ const cartRoutes = require('./routes/cart')
 const authRoutes = require('./routes/auth');
 const User = require('./models/user')
 const varMiddleware = require('./middleware/variables')
+const userMiddleware = require('./middleware/user')
 
 const DB_PASSWORD = 'XF1mNsJwLse9RJtt'
 const MONGODB_URL = `mongodb+srv://tagiltsef:${DB_PASSWORD}@cluster0.bpkhs.mongodb.net/shop`;
@@ -45,6 +46,7 @@ app.use(session({
 }))
 
 app.use(varMiddleware)
+app.use(userMiddleware)
 
 app.use('/', homeRoutes)
 app.use('/add', addRoutes)
