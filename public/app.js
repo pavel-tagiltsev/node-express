@@ -25,6 +25,7 @@ document.querySelectorAll('.date').forEach((node) => {
 })
 
 const $cart = document.querySelector('#cart')
+const csrf = $cart.dataset.csrf
 
 if ($cart) {
     $cart.addEventListener('click', (evt) => {
@@ -32,7 +33,10 @@ if ($cart) {
             const id = evt.target.dataset.id
             
             fetch(`/cart/remove/${id}`, {
-                method: 'delete'
+                method: 'delete',
+                headers: {
+                    'X-XSRF-TOKEN': csrf
+                }
             })
             .then((res) => res.json())
             .then((cart) => {
