@@ -25,9 +25,9 @@ document.querySelectorAll('.date').forEach((node) => {
 })
 
 const $cart = document.querySelector('#cart')
-const csrf = $cart.dataset.csrf
 
 if ($cart) {
+    const csrf = $cart.dataset.csrf
     $cart.addEventListener('click', (evt) => {
         if (evt.target.classList.contains('js-remove')) {
             const id = evt.target.dataset.id
